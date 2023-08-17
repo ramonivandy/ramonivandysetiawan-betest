@@ -2,10 +2,20 @@ const validator = require('../../helper/validator/validator')
 const commandModel = require('./command/command_models');
 const commandHandler = require('./command/command_handler');
 
-const getUser = async (req, res) => {
+const generateToken = async (req, res) => {
 };
 
-const generateToken = async (req, res) => {
+const getUser = async (req, res) => {
+  const params = req.query;
+  const getData = () => commandHandler.getUser(params);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? res.status(422).send({success: false, message: result.err})
+      : res.status(200).send({success: true, message: "success find user", data: result});
+  };
+
+  sendResponse(await getData());
 };
 
 const createUser = async (req, res) => {
@@ -27,7 +37,6 @@ const createUser = async (req, res) => {
   };
 
   sendResponse(await postRequest(validatePayload));
-
 };
 
 const updateUser = async (req, res, id) => {

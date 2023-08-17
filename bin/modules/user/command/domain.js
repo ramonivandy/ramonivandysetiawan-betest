@@ -4,11 +4,20 @@ class User {
   }
 
   async getUser(payload) {
-    console.log(client.db);
-    res.status(200).send({
-      success: true,
-      data: 'return from get user'
-    });
+    if(payload.accountNumber){
+      payload.accountNumber = parseInt(payload.accountNumber)
+    }
+    if(payload.identityNumber){
+      payload.identityNumber = parseInt(payload.identityNumber)
+    }
+
+    try {
+      const result = await this.db.find(payload).toArray();
+      return result;
+    } catch (error) {
+      console.error('Error find user:', error);
+      throw error;
+    }
   };
   
   async generateToken(payload) {
