@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const config = require("../../../helper/global_config");
+const config = require('../../../helper/global_config');
 const uri = config.get('/mongodb_url');
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 

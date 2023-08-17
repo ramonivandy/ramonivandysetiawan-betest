@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const generateToken = async (payload) => {
-  var token = jwt.sign(payload, 'randomstringforjsonwebtoken');
+  let token = jwt.sign(payload, 'randomstringforjsonwebtoken');
   return token;
 };
 
@@ -23,19 +23,18 @@ const verifyToken = async (req, res, next) => {
   const token = getToken(req.headers);
   if (!token) {
     result.err = 'Authentication Required';
-    return res.status(401).send(result)
+    return res.status(401).send(result);
   }
 
-  let decodedToken;
   try {
-    decodedToken = jwt.verify(token, 'randomstringforjsonwebtoken');
+    let decodedToken = jwt.verify(token, 'randomstringforjsonwebtoken');
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       result.err = 'Access token expired';
-      return res.status(498).send(result)
+      return res.status(498).send(result);
     }
     result.err = 'Invalid token';
-    return res.status(401).send(result)
+    return res.status(401).send(result);
   }
   next();
 };

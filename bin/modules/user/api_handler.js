@@ -1,5 +1,5 @@
-const jwt = require('../../helper/auth/jwt_auth_helper')
-const validator = require('../../helper/validator/validator')
+const jwt = require('../../helper/auth/jwt_auth_helper');
+const validator = require('../../helper/validator/validator');
 const commandModel = require('./command/command_models');
 const commandHandler = require('./command/command_handler');
 
@@ -11,8 +11,8 @@ const generateToken = async (req, res) => {
       message: token.err
     });
   }
-  
-  res.status(200).send({success: true, message: "success generate token", data: token});
+
+  res.status(200).send({success: true, message: 'success generate token', data: token});
 };
 
 const getUser = async (req, res) => {
@@ -22,7 +22,7 @@ const getUser = async (req, res) => {
   const sendResponse = (result) => {
     (result.err)
       ? res.status(422).send({success: false, message: result.err})
-      : res.status(200).send({success: true, message: "success find user", data: result});
+      : res.status(200).send({success: true, message: 'success find user', data: result});
   };
 
   sendResponse(await getData());
@@ -30,7 +30,7 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const payload = req.body;
-  const validatePayload = validator.isValidPayload(payload, commandModel.user)
+  const validatePayload = validator.isValidPayload(payload, commandModel.user);
   if(validatePayload.err){
     res.send(422, {success: false, message: validatePayload.err.details[0].message});
   }
@@ -43,7 +43,7 @@ const createUser = async (req, res) => {
   const sendResponse = (result) => {
     (result.err)
       ? res.status(422).send({success: false, message: result.err})
-      : res.status(200).send({success: true, message: "success create user"})
+      : res.status(200).send({success: true, message: 'success create user'});
   };
 
   sendResponse(await postRequest(validatePayload));
@@ -52,7 +52,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const payload = req.body;
   const params = req.params;
-  const validatePayload = validator.isValidPayload(payload, commandModel.user)
+  const validatePayload = validator.isValidPayload(payload, commandModel.user);
   if(validatePayload.err){
     res.send(422, {success: false, message: validatePayload.err.details[0].message});
   }
@@ -65,7 +65,7 @@ const updateUser = async (req, res) => {
   const sendResponse = (result) => {
     (result.err)
       ? res.status(422).send({success: false, message: result.err})
-      : res.status(200).send({success: true, message: "success update user"})
+      : res.status(200).send({success: true, message: 'success update user'});
   };
 
   sendResponse(await postRequest(validatePayload));
@@ -78,7 +78,7 @@ const deleteUser = async (req, res) => {
   const sendResponse = (result) => {
     (result.err)
       ? res.status(422).send({success: false, message: result.err})
-      : res.status(200).send({success: true, message: "success delete user", data: result.data});
+      : res.status(200).send({success: true, message: 'success delete user', data: result.data});
   };
 
   sendResponse(await postData());
