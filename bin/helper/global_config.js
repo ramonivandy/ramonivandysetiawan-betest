@@ -3,6 +3,7 @@ const confidence = require('confidence');
 
 const config = {
   port: process.env.PORT || 3001,
+  mongodb_url: process.env.MONGO_DATABASE_URL
 };
 
 const store = new confidence.Store(config);
