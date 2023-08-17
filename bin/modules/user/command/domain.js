@@ -1,3 +1,5 @@
+const validate = require('validate.js');
+
 class User {
   constructor(db) {
     this.db = db
@@ -45,7 +47,23 @@ class User {
     }
   };
   
-  async updateUser(payload) {
+  async updateUser(payload, params) {
+    params = { Id: parseInt(params.id) }
+    try {
+      // find data first
+      const userData = await this.db.findOne(params);
+      if (validate.isEmpty(userData)) {
+        return {
+          err: "User not found",
+          data: null,
+        }
+      }
+      const result = await this.db.updateOne(params, { $set: payload });
+      return result.modifiedCount;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
   
     res.status(200).send({
       success: true,

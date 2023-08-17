@@ -22,7 +22,13 @@ const createUser = async (payload) => {
   return await postCommand();
 };
 
-const updateUser = async (payload) => {
+const updateUser = async (payload, params) => {
+  const db = client.db('db_ramonivandysetiawan_betest');
+  const dbCollection = db.collection('users');
+  const user = new User(dbCollection)
+
+  const postCommand = async () => await user.updateUser(payload, params);
+  return await postCommand();
 };
 
 const deleteUser = async (payload) => {

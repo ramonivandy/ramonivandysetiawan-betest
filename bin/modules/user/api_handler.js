@@ -39,7 +39,26 @@ const createUser = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
-const updateUser = async (req, res, id) => {
+const updateUser = async (req, res) => {
+  const payload = req.body;
+  const params = req.params;
+  const validatePayload = validator.isValidPayload(payload, commandModel.user)
+  if(validatePayload.err){
+    res.send(422, {success: false, message: validatePayload.err.details[0].message});
+  }
+
+  const postRequest = (result) =>
+    (result.err)
+      ? result
+      : commandHandler.updateUser(result.data, params);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? res.status(422).send({success: false, message: result.err})
+      : res.status(200).send({success: true, message: "success update user"})
+  };
+
+  sendResponse(await postRequest(validatePayload));
 };
 
 const deleteUser = async (req, res) => {
