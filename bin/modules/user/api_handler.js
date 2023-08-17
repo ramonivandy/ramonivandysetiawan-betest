@@ -1,8 +1,18 @@
+const jwt = require('../../helper/auth/jwt_auth_helper')
 const validator = require('../../helper/validator/validator')
 const commandModel = require('./command/command_models');
 const commandHandler = require('./command/command_handler');
 
 const generateToken = async (req, res) => {
+  const token = await jwt.generateToken({});
+  if(token.err){
+    res.status(422).send({
+      success: true,
+      message: token.err
+    });
+  }
+  
+  res.status(200).send({success: true, message: "success generate token", data: token});
 };
 
 const getUser = async (req, res) => {

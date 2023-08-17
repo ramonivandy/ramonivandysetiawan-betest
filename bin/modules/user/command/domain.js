@@ -22,21 +22,6 @@ class User {
     }
   };
   
-  async generateToken(payload) {
-    const token = await jwt.generateToken({});
-    if(token.err){
-      res.status(422).send({
-        success: true,
-        message: token.err
-      });
-    }
-  
-    res.status(200).send({
-      success: true,
-      data: token
-    });
-  };
-  
   async createUser(payload) {
     try {
       const result = await this.db.insertOne(payload);
