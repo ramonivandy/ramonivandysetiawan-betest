@@ -46,22 +46,31 @@ class User {
       const result = await this.db.updateOne(params, { $set: payload });
       return result.modifiedCount;
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error('Error update user:', error);
       throw error;
     }
-  
-    res.status(200).send({
-      success: true,
-      data: 'return from update user'
-    });
   };
   
-  async deleteUser(payload) {
-  
-    res.status(200).send({
-      success: true,
-      data: 'return from delete user'
-    });
+  async deleteUser(params) {
+    params = { Id: parseInt(params.id) }
+    try {
+      // find data first
+      const userData = await this.db.findOne(params);
+      if (validate.isEmpty(userData)) {
+        return {
+          err: "User not found",
+          data: null,
+        }
+      }
+      const result = await this.db.deleteOne(params);
+      return {
+        err: null,
+        data: result.deleteCount,
+      }
+    } catch (error) {
+      console.error('Error delete user:', error);
+      throw error;
+    }
   };
 }
 

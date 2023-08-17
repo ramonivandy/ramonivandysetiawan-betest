@@ -72,6 +72,16 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  const params = req.params;
+  const postData = () => commandHandler.deleteUser(params);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? res.status(422).send({success: false, message: result.err})
+      : res.status(200).send({success: true, message: "success delete user", data: result.data});
+  };
+
+  sendResponse(await postData());
 };
 
 module.exports = {
