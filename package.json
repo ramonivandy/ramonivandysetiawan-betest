@@ -1,0 +1,35 @@
+{
+  "name": "jenius-technical-test",
+  "version": "1.0.0",
+  "description": "Jenius Backend Technical Test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint bin",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ramonivandy/ramonivandysetiawan-betest.git"
+  },
+  "author": "Ramon Ivandy Setiawan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ramonivandy/ramonivandysetiawan-betest/issues"
+  },
+  "homepage": "https://github.com/Ramonivandy/ramonivandysetiawan-betest#readme",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.1.10",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^7.19.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
