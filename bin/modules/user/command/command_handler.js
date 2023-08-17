@@ -1,8 +1,10 @@
 const { client } = require('../../../helper/database/mongodb/mongodb');
 const User = require('./domain');
+const config = require('../../../helper/global_config')
+const databaseName = config.get("/mongodb_db_name")
 
 const getUser = async (payload) => {
-  const db = client.db('db_ramonivandysetiawan_betest');
+  const db = client.db(databaseName);
   const dbCollection = db.collection('users');
   const user = new User(dbCollection);
 
@@ -11,7 +13,7 @@ const getUser = async (payload) => {
 };
 
 const createUser = async (payload) => {
-  const db = client.db('db_ramonivandysetiawan_betest');
+  const db = client.db(databaseName);
   const dbCollection = db.collection('users');
   const user = new User(dbCollection);
 
@@ -20,7 +22,7 @@ const createUser = async (payload) => {
 };
 
 const updateUser = async (payload, params) => {
-  const db = client.db('db_ramonivandysetiawan_betest');
+  const db = client.db(databaseName);
   const dbCollection = db.collection('users');
   const user = new User(dbCollection);
 
@@ -29,7 +31,7 @@ const updateUser = async (payload, params) => {
 };
 
 const deleteUser = async (params) => {
-  const db = client.db('db_ramonivandysetiawan_betest');
+  const db = client.db(databaseName);
   const dbCollection = db.collection('users');
   const user = new User(dbCollection);
 

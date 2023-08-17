@@ -84,10 +84,31 @@ const deleteUser = async (req, res) => {
   sendResponse(await postData());
 };
 
+const createUserConsumer = async (payload) => {
+  const validatePayload = validator.isValidPayload(payload, commandModel.user);
+  if(validatePayload.err){
+    console.log('create user from kafka: validation data failed/error')
+  }
+
+  const postRequest = (result) =>
+    (result.err)
+      ? result
+      : commandHandler.createUser(result.data);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? console.log('error: add new user from kafka')
+      : console.log('success: add new user from kafka')
+  };
+
+  sendResponse(await postRequest(validatePayload));
+};
+
 module.exports = {
   getUser,
   generateToken,
   createUser,
+  createUserConsumer,
   updateUser,
   deleteUser
 };
